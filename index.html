@@ -3,739 +3,811 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FutbalTour - Lead Scoring ABC a SLA</title>
+    <title>FutbalTour - Lead Scoring</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background: #f4f4f4;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
+            background: white;
+            padding: 40px;
         }
         
         header {
-            background: white;
-            padding: 40px 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             text-align: center;
-        }
-        
-        header img {
-            max-width: 150px;
-            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
         }
         
         h1 {
             color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 15px;
+            margin: 10px 0;
         }
         
-        .meta {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            font-size: 0.95em;
+        .meta-info {
+            font-size: 0.9em;
             color: #666;
         }
         
-        .meta strong {
+        .meta-info strong {
             color: #333;
-        }
-        
-        .content {
-            background: white;
-            border-radius: 10px;
-            padding: 40px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
         }
         
         h2 {
             color: #667eea;
-            font-size: 2em;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 2px solid #ddd;
             padding-bottom: 10px;
-        }
-        
-        h2:first-child {
-            margin-top: 0;
+            margin-top: 30px;
         }
         
         h3 {
             color: #764ba2;
-            font-size: 1.4em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        
-        h4 {
-            color: #667eea;
-            margin-top: 15px;
-            margin-bottom: 10px;
-        }
-        
-        ul, ol {
-            margin-left: 30px;
-            margin-bottom: 15px;
-        }
-        
-        li {
-            margin-bottom: 8px;
+            margin-top: 25px;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
         }
         
         th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #667eea;
             color: white;
-            font-weight: 600;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
         }
         
-        tr:hover {
-            background-color: #f5f5f5;
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
         }
         
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
+        tr:nth-child(even) {
+            background: #f9f9f9;
         }
         
-        .emoji {
-            font-size: 1.5em;
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin-bottom: 8px;
         }
         
         .info-box {
             background: #f0f4ff;
             border-left: 4px solid #667eea;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        
-        .scoring-card {
-            background: #f9f9f9;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 15px 0;
-            border-left: 4px solid #667eea;
-        }
-        
-        .scoring-card strong {
-            color: #667eea;
-        }
-        
-        .legend {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .legend-item {
-            background: #f5f5f5;
             padding: 15px;
-            border-radius: 5px;
-            border-top: 3px solid #667eea;
+            margin: 20px 0;
         }
         
-        .legend-item strong {
-            color: #667eea;
+        .calculator {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
         }
         
-        .formula {
-            background: #f0f4ff;
+        .calc-row {
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .calc-row.full {
+            grid-template-columns: 1fr;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        
+        .result-box {
+            background: #667eea;
+            color: white;
             padding: 20px;
             border-radius: 8px;
-            font-family: 'Monaco', 'Courier New', monospace;
-            margin: 20px 0;
-            text-align: center;
-            font-size: 1.1em;
-        }
-        
-        .matrix-table {
+            margin-top: 20px;
             text-align: center;
         }
         
-        .matrix-table td {
-            font-weight: 600;
-        }
-        
-        .lead-a { color: #22c55e; }
-        .lead-b { color: #f59e0b; }
-        .lead-c { color: #ef4444; }
-        
-        footer {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            color: #666;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .automation-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .automation-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .automation-card h4 {
+        .result-box h3 {
             color: white;
             margin-top: 0;
-            font-size: 1.3em;
-            margin-bottom: 10px;
         }
         
-        .automation-number {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            line-height: 35px;
-            text-align: center;
+        .score-value {
+            font-size: 2.5em;
             font-weight: bold;
-            margin-right: 10px;
+            margin: 10px 0;
         }
         
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8em;
-            }
-            
-            .meta {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-            
-            table {
-                font-size: 0.9em;
-            }
-            
-            th, td {
-                padding: 10px;
-            }
+        .bonita-text {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .bonita-a {
+            color: #4ade80;
+        }
+        
+        .bonita-b {
+            color: #fbbf24;
+        }
+        
+        .bonita-c {
+            color: #f87171;
+        }
+        
+        .sla-box {
+            background: #e8f4f8;
+            border: 2px solid #667eea;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+        
+        .sla-box strong {
+            color: #667eea;
+        }
+        
+        footer {
+            text-align: center;
+            border-top: 2px solid #ddd;
+            padding-top: 20px;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .scoring-example {
+            background: #f9f9f9;
+            border-left: 4px solid #764ba2;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .automation-box {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .automation-box strong {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🎯 FutbalTour Lead Scoring</h1>
-            <p style="font-size: 1.1em; color: #666; margin-bottom: 20px;">Návrh Lead Scoringu ABC a SLA na ich obsluhu</p>
-            <div class="meta">
-                <div><strong>Verzia:</strong> 1.0</div>
-                <div><strong>Aktualizácia:</strong> Máj 2026</div>
-                <div><strong>Zodpovedný:</strong> Andrej Straka</div>
+            <img src="./FutbalTour-Vertical-Color.png" alt="FutbalTour" style="max-width: 100px; margin-bottom: 15px;">
+            <h1>NÁVRH LEAD SCORINGU ABC A SLA NA ICH OBSLUHU</h1>
+            <div class="meta-info">
+                Verzia <strong>1.0</strong> · Aktualizácia <strong>máj 2026</strong> · Zodpovedný <strong>Andrej Straka</strong>
             </div>
         </header>
+
+        <h2>Základné pravidlá</h2>
+        <ul>
+            <li>Lead sa automaticky kvalifikuje podľa kvalifikácie klienta a kvalifikácie produktu.</li>
+            <li>Kvalifikácia klientov prebieha automaticky.</li>
+            <li>Kvalifikáciu produktov zadáva pri vytvorení produktu produkcia, Sales TL si ju upravujú podľa aktuálnej situácie.</li>
+            <li>Parametre bonity klientov aj produktov môžeme na sales (TL) meniť cez CRM nastavením hodnoty jednotlivých.</li>
+            <li>Označenie B2B / VIP / Chmeťák / Spolupráca — neoznačuje revenue. Označuje status a spôsob prístupu (VIP — nadľudia vyžadujúci VIP starostlivosť, B2B — v starostlivosti B2B, Chmeťák — špekulant, problémový).</li>
+        </ul>
+
+        <h2>Skóring klienta</h2>
         
-        <div class="content">
-            <h2>📋 Základné pravidlá</h2>
-            <ul>
-                <li>Lead sa automaticky kvalifikuje podľa kvalifikácie klienta a kvalifikácie produktu.</li>
-                <li>Kvalifikácia klientov prebieha automaticky.</li>
-                <li>Kvalifikáciu produktov zadáva pri vytvorení produktu produkcia, Sales TL si ju upravujú podľa aktuálnej situácie.</li>
-                <li>Parametre bonity klientov aj produktov môžeme na sales (TL) meniť cez CRM nastavením hodnoty jednotlivých.</li>
-                <li>Označenie B2B / VIP / Chmeťák / Spolupráca — neoznačuje revenue. Označuje status a spôsob prístupu (VIP — nadľudia vyžadujúci VIP starostlivosť, B2B — v starostlivosti B2B, Chmeťák — špekulant, problémový).</li>
-            </ul>
-            
-            <h2>👤 Skóring klienta</h2>
-            
-            <h3>RFM Model: Recency · Frequency · Monetary</h3>
-            <p>RFM je analytický model na segmentáciu a scoring zákazníkov podľa ich nákupného správania. Meria tri dimenzie: <strong>kedy naposlady kúpil</strong> (Recency), <strong>koľkokrát kúpil</strong> (Frequency) a <strong>koľko celkovo utratil</strong> (Monetary).</p>
-            
-            <h4>Kde sa používa</h4>
-            <ul>
-                <li>E-commerce a retail (Amazon, Zalando)</li>
-                <li>Travel a hospitality (airlines, hotely, tour operátori)</li>
-                <li>Subscription a SaaS firmy</li>
-                <li>B2B sales s opakujúcimi sa nákupmi</li>
-                <li>Loyalty programy a CRM systémy</li>
-            </ul>
-            
-            <h4>Prečo funguje</h4>
-            <ul>
-                <li>Meria správanie, nie potenciál — vychádza z dát</li>
-                <li>Predikuje budúce nákupy lepšie ako demografické segmentácie</li>
-                <li>Jednoducho implementovateľný v každom CRM</li>
-                <li>Umožňuje priorizovať obchodnú pozornosť podľa hodnoty</li>
-                <li>Odhalí ohrozených zákazníkov skôr, ako odídu</li>
-            </ul>
-            
-            <h3>Monetary - Celkové revenue</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Trieda</th>
-                        <th>Celkové revenue</th>
-                        <th>Označenie</th>
-                        <th>Body</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>A</strong></td>
-                        <td>5 000 € a viac</td>
-                        <td>Vysoká hodnota</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td><strong>B</strong></td>
-                        <td>2 500 – 4 999 €</td>
-                        <td>Stredná hodnota</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td><strong>C</strong></td>
-                        <td>0 – 2 499 €</td>
-                        <td>Nízka hodnota</td>
-                        <td>1</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p style="font-style: italic; color: #666;"><span class="emoji">ℹ</span> VIP a Chmeťák — iba manuálne (zakliknutím checkboxu)</p>
-            
-            <h3>Recency - Čas od posledného nákupu</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Trieda</th>
-                        <th>Posledný nákup</th>
-                        <th>Označenie</th>
-                        <th>Body</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>A</strong></td>
-                        <td>Do 6 mesiacov</td>
-                        <td>Aktívny</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td><strong>B</strong></td>
-                        <td>6 – 18 mesiacov</td>
-                        <td>Príležitostný</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td><strong>C</strong></td>
-                        <td>Nad 18 mesiacov</td>
-                        <td>Neaktívny</td>
-                        <td>1</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Frequency - Počet zájazdov</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Trieda</th>
-                        <th>Počet zájazdov</th>
-                        <th>Označenie</th>
-                        <th>Body</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>A</strong></td>
-                        <td>5 a viac nákupov</td>
-                        <td>Verný (regular)</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td><strong>B</strong></td>
-                        <td>2 – 4 nákupy</td>
-                        <td>Príležitostný (occasional)</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td><strong>C</strong></td>
-                        <td>0 – 1 nákup</td>
-                        <td>Jednorazový (onetime)</td>
-                        <td>1</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Výpočet váženého skóre</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Parameter</th>
-                        <th>Váha</th>
-                        <th>A = 3 body</th>
-                        <th>B = 2 body</th>
-                        <th>C = 1 bod</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Monetary</strong></td>
-                        <td>50 %</td>
-                        <td>≥ 5 000 €</td>
-                        <td>2 500 – 4 999 €</td>
-                        <td>0 – 2 499 €</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Recency</strong></td>
-                        <td>25 %</td>
-                        <td>do 6 mes.</td>
-                        <td>6 – 18 mes.</td>
-                        <td>nad 18 mes.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Frequency</strong></td>
-                        <td>25 %</td>
-                        <td>≥ 5</td>
-                        <td>2 – 4</td>
-                        <td>0 – 1</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="formula">
-                Skóre = <strong>(Mon_body × 0,50) + (Rec_body × 0,25) + (Freq_body × 0,25)</strong><br>
-                Rozsah výsledku: <strong>1,0 – 3,0</strong>
-            </div>
-            
-            <h3>Finálna klasifikácia</h3>
-            <div class="legend">
-                <div class="legend-item">
-                    <strong style="color: #22c55e;">2,34 – 3,00</strong><br>
-                    Bonita <strong>A</strong><br>
-                    TOP klient
+        <h3>RFM Model: Recency · Frequency · Monetary</h3>
+        <p>RFM je analytický model na segmentáciu a scoring zákazníkov podľa ich nákupného správania. Meria tri dimenzie: <strong>kedy naposlady kúpil</strong> (Recency), <strong>koľkokrát kúpil</strong> (Frequency) a <strong>koľko celkovo utratil</strong> (Monetary).</p>
+        
+        <h3>Kde sa používa</h3>
+        <ul>
+            <li>▸ E-commerce a retail (Amazon, Zalando)</li>
+            <li>▸ Travel a hospitality (airlines, hotely, tour operátori)</li>
+            <li>▸ Subscription a SaaS firmy</li>
+            <li>▸ B2B sales s opakujúcimi sa nákupmi</li>
+            <li>▸ Loyalty programy a CRM systémy</li>
+        </ul>
+        
+        <h3>Prečo funguje</h3>
+        <ul>
+            <li>▸ Meria správanie, nie potenciál — vychádza z dát</li>
+            <li>▸ Predikuje budúce nákupy lepšie ako demografické segmentácie</li>
+            <li>▸ Jednoducho implementovateľný v každom CRM</li>
+            <li>▸ Umožňuje priorizovať obchodnú pozornosť podľa hodnoty</li>
+            <li>▸ Odhalí ohrozených zákazníkov skôr, ako odídu</li>
+        </ul>
+
+        <h3>Monetary (celkové revenue)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Trieda</th>
+                    <th>Celkové revenue</th>
+                    <th>Označenie</th>
+                    <th>Body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>A</td>
+                    <td>5 000 € a viac</td>
+                    <td>Vysoká hodnota</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>B</td>
+                    <td>2 500 – 4 999 €</td>
+                    <td>Stredná hodnota</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>C</td>
+                    <td>0 – 2 499 €</td>
+                    <td>Nízka hodnota</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="info-box">VIP a Chmeťák — iba manuálne (zakliknutím checkboxu)</div>
+
+        <h3>Recency (čas od posledného nákupu)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Trieda</th>
+                    <th>Posledný nákup</th>
+                    <th>Označenie</th>
+                    <th>Body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>A</td>
+                    <td>do 6 mesiacov</td>
+                    <td>Aktívny</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>B</td>
+                    <td>6 – 18 mesiacov</td>
+                    <td>Príležitostný</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>C</td>
+                    <td>nad 18 mesiacov</td>
+                    <td>Neaktívny</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Frequency (počet zájazdov)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Trieda</th>
+                    <th>Počet zájazdov</th>
+                    <th>Označenie</th>
+                    <th>Body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>A</td>
+                    <td>5 a viac nákupov</td>
+                    <td>Verný (regular)</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>B</td>
+                    <td>2 – 4 nákupy</td>
+                    <td>Príležitostný (occasional)</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>C</td>
+                    <td>0 – 1 nákup</td>
+                    <td>Jednorazový (onetime)</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Výpočet váženého skóre</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Váha</th>
+                    <th>A = 3 body</th>
+                    <th>B = 2 body</th>
+                    <th>C = 1 bod</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Monetary (celkové revenue)</strong></td>
+                    <td>50 %</td>
+                    <td>≥ 5 000 €</td>
+                    <td>2 500 – 4 999 €</td>
+                    <td>0 – 2 499 €</td>
+                </tr>
+                <tr>
+                    <td><strong>Recency (posledný nákup)</strong></td>
+                    <td>25 %</td>
+                    <td>do 6 mes.</td>
+                    <td>6 – 18 mes.</td>
+                    <td>nad 18 mes.</td>
+                </tr>
+                <tr>
+                    <td><strong>Frequency (počet nákupov)</strong></td>
+                    <td>25 %</td>
+                    <td>≥ 5</td>
+                    <td>2 – 4</td>
+                    <td>0 – 1</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box">
+            <strong>Skóre = (Mon_body × 0,50) + (Rec_body × 0,25) + (Freq_body × 0,25)</strong><br>
+            Rozsah výsledku: <strong>1,0 – 3,0</strong>
+        </div>
+
+        <h3>Finálna klasifikácia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Skóre</th>
+                    <th>Bonita</th>
+                    <th>Popis</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2,34 – 3,00</td>
+                    <td><strong>A</strong></td>
+                    <td>Bonita A — TOP klient</td>
+                </tr>
+                <tr>
+                    <td>1,67 – 2,33</td>
+                    <td><strong>B</strong></td>
+                    <td>Bonita B — Lepší klient</td>
+                </tr>
+                <tr>
+                    <td>1,00 – 1,66</td>
+                    <td><strong>C</strong></td>
+                    <td>Bonita C — Bežný klient</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box">
+            ℹ <strong>Nový klient:</strong> Nový klient sa berie ako <strong>B klient</strong>. Po uzatvorení leadu sa mu automaticky prepočíta bonita.
+        </div>
+
+        <h3>Príklady výpočtu bonity klienta</h3>
+        
+        <div class="scoring-example">
+            <strong>Martin Kováč</strong><br>
+            Monetary (50%): 14 200 € | Recency (25%): 2 mesiace | Frequency (25%): 8 nákupov<br>
+            <strong>Skóre: 3,00 → Bonita A</strong>
+        </div>
+
+        <div class="scoring-example">
+            <strong>Jana Horáková</strong><br>
+            Monetary (50%): 11 800 € | Recency (25%): 4 mesiace | Frequency (25%): 3 nákupy<br>
+            <strong>Skóre: 2,75 → Bonita A</strong>
+        </div>
+
+        <div class="scoring-example">
+            <strong>Rastislav Novák</strong><br>
+            Monetary (50%): 3 400 € | Recency (25%): 3 mesiace | Frequency (25%): 3 nákupy<br>
+            <strong>Skóre: 2,25 → Bonita B</strong>
+        </div>
+
+        <h2>Skóring produktu</h2>
+        <div class="info-box">
+            ⚙ <strong>A, B, C</strong> — zadáva produkcia manuálne. Sales TL majú možnosť meniť podľa aktuálnej situácie.
+        </div>
+
+        <h2>Skóring leadu — výsledná bonita</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Klient \ Produkt</th>
+                    <th>Produkt A</th>
+                    <th>Produkt B</th>
+                    <th>Produkt C</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Klient A</td>
+                    <td>🟢 A</td>
+                    <td>🟢 A</td>
+                    <td>🟡 B</td>
+                </tr>
+                <tr>
+                    <td>Klient B</td>
+                    <td>🟡 B</td>
+                    <td>🟡 B</td>
+                    <td>🟡 B</td>
+                </tr>
+                <tr>
+                    <td>Klient C</td>
+                    <td>🟡 B</td>
+                    <td>🔴 C</td>
+                    <td>🔴 C</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Kalkulačka bonity leadu</h2>
+        
+        <div class="calculator">
+            <div class="calc-row">
+                <div>
+                    <label for="monetary">Monetary - celkové revenue €</label>
+                    <select id="monetary" onchange="calculateScore()">
+                        <option value="">-- vyber --</option>
+                        <option value="3">A (≥ 5 000 €)</option>
+                        <option value="2">B (2 500 – 4 999 €)</option>
+                        <option value="1">C (0 – 2 499 €)</option>
+                    </select>
                 </div>
-                <div class="legend-item">
-                    <strong style="color: #f59e0b;">1,67 – 2,33</strong><br>
-                    Bonita <strong>B</strong><br>
-                    Lepší klient
-                </div>
-                <div class="legend-item">
-                    <strong style="color: #ef4444;">1,00 – 1,66</strong><br>
-                    Bonita <strong>C</strong><br>
-                    Bežný klient
+                <div id="monetaryText" style="padding: 10px; background: white; border-radius: 4px;">
+                    B — 2 500 – 4 999 €
                 </div>
             </div>
-            
-            <div class="info-box">
-                <strong>ℹ Nový klient</strong><br>
-                Nový klient sa berie ako <strong>B klient</strong>. Po uzatvorení leadu sa mu automaticky prepočíta bonita.
-            </div>
-            
-            <h3>Príklady výpočtu bonity klienta</h3>
-            
-            <div class="scoring-card">
-                <h4>Martin Kováč</h4>
-                <strong>Monetary (50%):</strong> 14 200 €<br>
-                <strong>Recency (25%):</strong> 2 mesiace<br>
-                <strong>Frequency (25%):</strong> 8 nákupov<br>
-                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <strong>Skóre: 3,00</strong><br>
-                <span class="lead-a" style="font-size: 1.1em;">● Bonita A</span>
-            </div>
-            
-            <div class="scoring-card">
-                <h4>Jana Horáková</h4>
-                <strong>Monetary (50%):</strong> 11 800 €<br>
-                <strong>Recency (25%):</strong> 4 mesiace<br>
-                <strong>Frequency (25%):</strong> 3 nákupy<br>
-                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <strong>Skóre: 2,75</strong><br>
-                <span class="lead-a" style="font-size: 1.1em;">● Bonita A</span>
-            </div>
-            
-            <div class="scoring-card">
-                <h4>Veronika Šimková</h4>
-                <strong>Monetary (50%):</strong> 9 600 €<br>
-                <strong>Recency (25%):</strong> 11 mesiacov<br>
-                <strong>Frequency (25%):</strong> 5 nákupov<br>
-                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <strong>Skóre: 2,75</strong><br>
-                <span class="lead-a" style="font-size: 1.1em;">● Bonita A</span>
-            </div>
-            
-            <div class="scoring-card">
-                <h4>Rastislav Novák</h4>
-                <strong>Monetary (50%):</strong> 3 400 €<br>
-                <strong>Recency (25%):</strong> 3 mesiace<br>
-                <strong>Frequency (25%):</strong> 3 nákupy<br>
-                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <strong>Skóre: 2,25</strong><br>
-                <span class="lead-b" style="font-size: 1.1em;">● Bonita B</span>
-            </div>
-            
-            <div class="scoring-card">
-                <h4>Petra Blahová</h4>
-                <strong>Monetary (50%):</strong> 4 700 €<br>
-                <strong>Recency (25%):</strong> 9 mesiacov<br>
-                <strong>Frequency (25%):</strong> 2 nákupy<br>
-                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <strong>Skóre: 2,00</strong><br>
-                <span class="lead-b" style="font-size: 1.1em;">● Bonita B</span>
-            </div>
-            
-            <div class="scoring-card">
-                <h4>Lukáš Mináč</h4>
-                <strong>Monetary (50%):</strong> 1 900 €<br>
-                <strong>Recency (25%):</strong> 2 mesiace<br>
-                <strong>Frequency (25%):</strong> 3 nákupy<br>
-                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <strong>Skóre: 1,75</strong><br>
-                <span class="lead-b" style="font-size: 1.1em;">● Bonita B</span>
-            </div>
-            
-            <div class="scoring-card">
-                <h4>Tomáš Jurčík</h4>
-                <strong>Monetary (50%):</strong> 2 800 €<br>
-                <strong>Recency (25%):</strong> 14 mesiacov<br>
-                <strong>Frequency (25%):</strong> 1 nákup<br>
-                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <strong>Skóre: 1,75</strong><br>
-                <span class="lead-b" style="font-size: 1.1em;">● Bonita B</span>
-            </div>
-            
-            <div class="scoring-card">
-                <h4>Monika Vlčková</h4>
-                <strong>Monetary (50%):</strong> 1 200 €<br>
-                <strong>Recency (25%):</strong> 8 mesiacov<br>
-                <strong>Frequency (25%):</strong> 1 nákup<br>
-                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <strong>Skóre: 1,25</strong><br>
-                <span class="lead-c" style="font-size: 1.1em;">● Bonita C</span>
-            </div>
-            
-            <div class="scoring-card">
-                <h4>Filip Oravec</h4>
-                <strong>Monetary (50%):</strong> 850 €<br>
-                <strong>Recency (25%):</strong> 24 mesiacov<br>
-                <strong>Frequency (25%):</strong> 1 nákup<br>
-                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
-                <strong>Skóre: 1,00</strong><br>
-                <span class="lead-c" style="font-size: 1.1em;">● Bonita C</span>
-            </div>
-            
-            <h2>📦 Skóring produktu</h2>
-            <div class="info-box">
-                <strong>⚙ Skóring produktu</strong><br>
-                <strong>A, B, C</strong> — zadáva produkcia manuálne. Sales TL majú možnosť meniť podľa aktuálnej situácie.
-            </div>
-            
-            <h2>🎯 Skóring leadu — výsledná bonita</h2>
-            <table class="matrix-table">
-                <thead>
-                    <tr>
-                        <th>Klient \ Produkt</th>
-                        <th>Produkt A</th>
-                        <th>Produkt B</th>
-                        <th>Produkt C</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Klient A</strong></td>
-                        <td class="lead-a">🟢 A</td>
-                        <td class="lead-a">🟢 A</td>
-                        <td class="lead-b">🟡 B</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Klient B</strong></td>
-                        <td class="lead-b">🟡 B</td>
-                        <td class="lead-b">🟡 B</td>
-                        <td class="lead-b">🟡 B</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Klient C</strong></td>
-                        <td class="lead-b">🟡 B</td>
-                        <td class="lead-c">🔴 C</td>
-                        <td class="lead-c">🔴 C</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h2>🔔 SLA na obsluhu leadov</h2>
-            
-            <h3>A LEAD — Prioritná obsluha</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aktivita</th>
-                        <th>Forma</th>
-                        <th>SLA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Potvrdenie o prijatí leadu</td>
-                        <td>E-mail (automaticky)</td>
-                        <td><strong>Okamžite</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Cenová ponuka (CP)</td>
-                        <td>E-mail (manuálne zo CRM)</td>
-                        <td><strong>Do 12 hodín</strong></td>
-                    </tr>
-                    <tr>
-                        <td>1. Follow up</td>
-                        <td>Telefonát</td>
-                        <td><strong>Do 24 hod od zaslania CP</strong></td>
-                    </tr>
-                    <tr>
-                        <td>2. Follow up</td>
-                        <td>E-mail (manuálne)</td>
-                        <td><strong>Do 48 hod od zaslania CP</strong></td>
-                    </tr>
-                    <tr>
-                        <td>LOST / iná follow-up aktivita</td>
-                        <td>Manuálne</td>
-                        <td><strong>Do 7 dní od zaslania CP</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>B LEAD — Štandardná obsluha</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aktivita</th>
-                        <th>Forma</th>
-                        <th>SLA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Potvrdenie o prijatí leadu</td>
-                        <td>E-mail (automaticky)</td>
-                        <td><strong>Okamžite</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Cenová ponuka (CP)</td>
-                        <td>E-mail (manuálne z CRM)</td>
-                        <td><strong>Do 24 hodín</strong></td>
-                    </tr>
-                    <tr>
-                        <td>1. Follow up</td>
-                        <td>E-mail (manuálne)</td>
-                        <td><strong>Do 24 hod od zaslania CP</strong></td>
-                    </tr>
-                    <tr>
-                        <td>2. Follow up</td>
-                        <td>E-mail (automaticky)</td>
-                        <td><strong>Do 48 hod od zaslania CP</strong></td>
-                    </tr>
-                    <tr>
-                        <td>LOST / iná follow-up aktivita</td>
-                        <td>Manuálne</td>
-                        <td><strong>Do 72 hod po 2. follow-upe</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>C LEAD — Automatizovaná obsluha</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aktivita</th>
-                        <th>Forma</th>
-                        <th>SLA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Potvrdenie o prijatí leadu</td>
-                        <td>E-mail (automaticky)</td>
-                        <td><strong>Okamžite</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Cenová ponuka (CP)</td>
-                        <td>E-mail (manuálne z CRM)</td>
-                        <td><strong>Do 24 hodín</strong></td>
-                    </tr>
-                    <tr>
-                        <td>1. Follow up</td>
-                        <td>E-mail (automaticky)</td>
-                        <td><strong>Do 24 hod od zaslania CP</strong></td>
-                    </tr>
-                    <tr>
-                        <td>2. Follow up</td>
-                        <td>E-mail (automaticky)</td>
-                        <td><strong>Do 48 hod od zaslania CP</strong></td>
-                    </tr>
-                    <tr>
-                        <td>LOST</td>
-                        <td>Automaticky</td>
-                        <td><strong>Do 72 hod po 2. follow-upe</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h2>⚡ Quick win automatizácie</h2>
-            <div class="automation-grid">
-                <div class="automation-card">
-                    <h4><span class="automation-number">1</span>Auto-acknowledgement</h4>
-                    <p>Personalizovaný e-mail + SMS/WA po prijatí leadu. Potvrdzuje konkrétny zájazd, žiada počet cestujúcich a preferované letisko.</p>
+
+            <div class="calc-row">
+                <div>
+                    <label for="recency">Recency - mesiacov od posledného nákupu</label>
+                    <select id="recency" onchange="calculateScore()">
+                        <option value="">-- vyber --</option>
+                        <option value="3">A (do 6 mes.)</option>
+                        <option value="2">B (6 – 18 mes.)</option>
+                        <option value="1">C (nad 18 mes.)</option>
+                    </select>
                 </div>
-                <div class="automation-card">
-                    <h4><span class="automation-number">2</span>Notifikácia po zaslaní CP</h4>
-                    <p>Automatický WA/SMS po odoslaní ponuky. Upozorní klienta na e-mail s CP a tipne mu skontrolovať spam.</p>
+                <div id="recencyText" style="padding: 10px; background: white; border-radius: 4px;">
+                    A — do 6 mes.
                 </div>
-                <div class="automation-card">
-                    <h4><span class="automation-number">3</span>Passenger data form</h4>
-                    <p>Klient vypĺňa údaje o cestujúcich cez štruktúrovaný formulár — nie voľným textom do mailu. Menej chýb, rýchlejšie spracovanie.</p>
+            </div>
+
+            <div class="calc-row">
+                <div>
+                    <label for="frequency">Frequency - počet zájazdov</label>
+                    <select id="frequency" onchange="calculateScore()">
+                        <option value="">-- vyber --</option>
+                        <option value="3">A (≥ 5 nákupov)</option>
+                        <option value="2">B (2 – 4 nákupy)</option>
+                        <option value="1">C (0 – 1 nákup)</option>
+                    </select>
                 </div>
+                <div id="frequencyText" style="padding: 10px; background: white; border-radius: 4px;">
+                    A — ≥ 5 nákupov
+                </div>
+            </div>
+
+            <div class="calc-row">
+                <div>
+                    <label for="product">Typ produktu</label>
+                    <select id="product" onchange="calculateScore()">
+                        <option value="">-- vyber produkt --</option>
+                        <optgroup label="Produkt A">
+                            <option value="A">NHL</option>
+                            <option value="A">Letecký zájazd – Real Madrid vs FC Barcelona</option>
+                            <option value="A">Vstupenka – Real Madrid vs FC Barcelona</option>
+                            <option value="A">Charter na F1 Bahrajn</option>
+                        </optgroup>
+                        <optgroup label="Produkt B">
+                            <option value="B">Bus na Bayern München</option>
+                            <option value="B">Vstupenka – FC Barcelona vs Girona</option>
+                            <option value="B">Letecký zájazd na Neapol</option>
+                        </optgroup>
+                        <optgroup label="Produkt C">
+                            <option value="C">Vstupenka – slovenská futbalová reprezentácia</option>
+                            <option value="C">Bus na otočku s nízkou maržou</option>
+                            <option value="C">Vstupenka na Neapol</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div id="productText" style="padding: 10px; background: white; border-radius: 4px;">
+                    Produkt B
+                </div>
+            </div>
+
+            <div id="resultSection" style="display: none;">
+                <div class="result-box">
+                    <h3>Bonita klienta</h3>
+                    <div id="clientScore" style="font-size: 1.5em; margin: 10px 0;"></div>
+                    <div id="clientBonita" style="font-size: 1.3em; margin: 10px 0;"></div>
+                    <div id="calculationDetail" style="font-size: 0.9em; margin-top: 15px; opacity: 0.9;"></div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 20px 0;">
+                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 5px;">
+                        <strong>Bonita klienta</strong><br>
+                        <span id="finalClientBonita" style="font-size: 1.3em; color: #667eea;"></span>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 5px;">
+                        <strong>Bonita produktu</strong><br>
+                        <span id="finalProductBonita" style="font-size: 1.3em; color: #667eea;"></span>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 5px;">
+                        <strong>Výsledný LEAD</strong><br>
+                        <span id="finalLeadBonita" style="font-size: 1.3em; color: #667eea; font-weight: bold;"></span>
+                    </div>
+                </div>
+
+                <div id="slaSection" class="sla-box"></div>
             </div>
         </div>
+
+        <h2>SLA na obsluhu leadov</h2>
         
+        <h3>A LEAD — Prioritná obsluha</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aktivita</th>
+                    <th>Forma</th>
+                    <th>SLA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Potvrdenie o prijatí leadu</td>
+                    <td>E-mail (automaticky)</td>
+                    <td>Okamžite</td>
+                </tr>
+                <tr>
+                    <td>Cenová ponuka (CP)</td>
+                    <td>E-mail (manuálne zo CRM)</td>
+                    <td><strong>Do 12 hodín</strong></td>
+                </tr>
+                <tr>
+                    <td>1. Follow up</td>
+                    <td>Telefonát</td>
+                    <td><strong>Do 24 hod od zaslania CP</strong></td>
+                </tr>
+                <tr>
+                    <td>2. Follow up</td>
+                    <td>E-mail (manuálne)</td>
+                    <td><strong>Do 48 hod od zaslania CP</strong></td>
+                </tr>
+                <tr>
+                    <td>LOST / iná follow-up aktivita</td>
+                    <td>Manuálne</td>
+                    <td><strong>Do 7 dní od zaslania CP</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>B LEAD — Štandardná obsluha</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aktivita</th>
+                    <th>Forma</th>
+                    <th>SLA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Potvrdenie o prijatí leadu</td>
+                    <td>E-mail (automaticky)</td>
+                    <td>Okamžite</td>
+                </tr>
+                <tr>
+                    <td>Cenová ponuka (CP)</td>
+                    <td>E-mail (manuálne z CRM)</td>
+                    <td><strong>Do 24 hodín</strong></td>
+                </tr>
+                <tr>
+                    <td>1. Follow up</td>
+                    <td>E-mail (manuálne)</td>
+                    <td><strong>Do 24 hod od zaslania CP</strong></td>
+                </tr>
+                <tr>
+                    <td>2. Follow up</td>
+                    <td>E-mail (automaticky)</td>
+                    <td><strong>Do 48 hod od zaslania CP</strong></td>
+                </tr>
+                <tr>
+                    <td>LOST / iná follow-up aktivita</td>
+                    <td>Manuálne</td>
+                    <td><strong>Do 72 hod po 2. follow-upe</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>C LEAD — Automatizovaná obsluha</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aktivita</th>
+                    <th>Forma</th>
+                    <th>SLA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Potvrdenie o prijatí leadu</td>
+                    <td>E-mail (automaticky)</td>
+                    <td>Okamžite</td>
+                </tr>
+                <tr>
+                    <td>Cenová ponuka (CP)</td>
+                    <td>E-mail (manuálne z CRM)</td>
+                    <td><strong>Do 24 hodín</strong></td>
+                </tr>
+                <tr>
+                    <td>1. Follow up</td>
+                    <td>E-mail (automaticky)</td>
+                    <td><strong>Do 24 hod od zaslania CP</strong></td>
+                </tr>
+                <tr>
+                    <td>2. Follow up</td>
+                    <td>E-mail (automaticky)</td>
+                    <td><strong>Do 48 hod od zaslania CP</strong></td>
+                </tr>
+                <tr>
+                    <td>LOST</td>
+                    <td>Automaticky</td>
+                    <td><strong>Do 72 hod po 2. follow-upe</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Quick win automatizácie</h2>
+        
+        <div class="automation-box">
+            <strong>1. Auto-acknowledgement</strong>
+            Personalizovaný e-mail + SMS/WA po prijatí leadu. Potvrdzuje konkrétny zájazd, žiada počet cestujúcich a preferované letisko.
+        </div>
+
+        <div class="automation-box">
+            <strong>2. Notifikácia po zaslaní CP</strong>
+            Automatický WA/SMS po odoslaní ponuky. Upozorní klienta na e-mail s CP a tipne mu skontrolovať spam.
+        </div>
+
+        <div class="automation-box">
+            <strong>3. Passenger data form</strong>
+            Klient vypĺňa údaje o cestujúcich cez štruktúrovaný formulár — nie voľným textom do mailu. Menej chýb, rýchlejšie spracovanie.
+        </div>
+
         <footer>
             <p><strong>FutbalTour</strong> · futbaltour.sk</p>
             <p>Interný dokument — Sales TL · 2026/27</p>
-            <p style="margin-top: 15px; font-size: 0.9em;">Verzia <strong>1.0</strong></p>
+            <p>Verzia <strong>1.0</strong></p>
         </footer>
     </div>
+
+    <script>
+        function getMonetaryText(value) {
+            const map = { '3': 'A (≥ 5 000 €)', '2': 'B (2 500 – 4 999 €)', '1': 'C (0 – 2 499 €)' };
+            return map[value] || '';
+        }
+
+        function getRecencyText(value) {
+            const map = { '3': 'A (do 6 mes.)', '2': 'B (6 – 18 mes.)', '1': 'C (nad 18 mes.)' };
+            return map[value] || '';
+        }
+
+        function getFrequencyText(value) {
+            const map = { '3': 'A (≥ 5 nákupov)', '2': 'B (2 – 4 nákupy)', '1': 'C (0 – 1 nákup)' };
+            return map[value] || '';
+        }
+
+        document.getElementById('monetary').addEventListener('change', function() {
+            document.getElementById('monetaryText').textContent = getMonetaryText(this.value) || 'B — 2 500 – 4 999 €';
+        });
+
+        document.getElementById('recency').addEventListener('change', function() {
+            document.getElementById('recencyText').textContent = getRecencyText(this.value) || 'A — do 6 mes.';
+        });
+
+        document.getElementById('frequency').addEventListener('change', function() {
+            document.getElementById('frequencyText').textContent = getFrequencyText(this.value) || 'A — ≥ 5 nákupov';
+        });
+
+        document.getElementById('product').addEventListener('change', function() {
+            const productNames = {
+                'A': 'Produkt A',
+                'B': 'Produkt B',
+                'C': 'Produkt C'
+            };
+            document.getElementById('productText').textContent = productNames[this.value] || 'Produkt B';
+        });
+
+        function calculateScore() {
+            const monetary = parseFloat(document.getElementById('monetary').value) || 0;
+            const recency = parseFloat(document.getElementById('recency').value) || 0;
+            const frequency = parseFloat(document.getElementById('frequency').value) || 0;
+            const product = document.getElementById('product').value;
+
+            if (monetary === 0 || recency === 0 || frequency === 0 || product === '') {
+                document.getElementById('resultSection').style.display = 'none';
+                return;
+            }
+
+            // Výpočet skóre
+            const score = (monetary * 0.50) + (recency * 0.25) + (frequency * 0.25);
+
+            // Určenie bonity klienta
+            let clientBonita = 'C';
+            if (score >= 2.34) clientBonita = 'A';
+            else if (score >= 1.67) clientBonita = 'B';
+
+            // Určenie výslednej bonity leadu
+            let finalLeadBonita = clientBonita;
+            
+            if (clientBonita === 'A') {
+                if (product === 'C') finalLeadBonita = 'B';
+                else finalLeadBonita = 'A';
+            } else if (clientBonita === 'B') {
+                finalLeadBonita = 'B';
+            } else if (clientBonita === 'C') {
+                if (product === 'A') finalLeadBonita = 'B';
+                else finalLeadBonita = 'C';
+            }
+
+            // Nastaví SLA podľa výsledného leadu
+            const slaContent = getSLAContent(finalLeadBonita);
+
+            // Update UI
+            document.getElementById('clientScore').textContent = 'Skóre: ' + score.toFixed(2);
+            document.getElementById('clientBonita').innerHTML = 'Bonita <span class="bonita-' + clientBonita.toLowerCase() + '">' + clientBonita + '</span>';
+            document.getElementById('calculationDetail').textContent = 'Mon ' + monetary + 'b (×0,50) + Rec ' + recency + 'b (×0,25) + Freq ' + frequency + 'b (×0,25)';
+            document.getElementById('finalClientBonita').textContent = clientBonita;
+            document.getElementById('finalProductBonita').textContent = product;
+            document.getElementById('finalLeadBonita').innerHTML = 'Lead <span class="bonita-' + finalLeadBonita.toLowerCase() + '">' + finalLeadBonita + '</span>';
+            document.getElementById('slaSection').innerHTML = slaContent;
+            document.getElementById('resultSection').style.display = 'block';
+        }
+
+        function getSLAContent(bonita) {
+            const slaMap = {
+                'A': '<strong>🟢 Lead A — Prioritná obsluha</strong><br>CP do 12 hod · 1. follow-up telefonát do 24 hod · 2. follow-up e-mail do 48 hod',
+                'B': '<strong>🟡 Lead B — Štandardná obsluha</strong><br>CP do 24 hod · 1. follow-up e-mail do 24 hod · 2. follow-up e-mail do 48 hod',
+                'C': '<strong>🔴 Lead C — Automatizovaná obsluha</strong><br>CP do 24 hod · 1. follow-up e-mail do 24 hod · 2. follow-up e-mail do 48 hod'
+            };
+            return slaMap[bonita] || '';
+        }
+    </script>
 </body>
 </html>
